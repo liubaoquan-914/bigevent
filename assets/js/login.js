@@ -10,7 +10,8 @@ $(function () {
     })
 
     //从layui中获取form属性
-    var form = layui.form;
+    const form = layui.form;
+    const layer = layui.layer
     //通过form.verify() 函数自定义校验规则
     form.verify({
         pwd: [
@@ -30,10 +31,7 @@ $(function () {
 
     //监听注册表单的提交事件
     $('#form_reg').on('submit', function (e) {
-        e.preventDefault()
-        //提交数据
-        // var username = $('#form_reg [name:username]').val();
-        // var password = $('#form_reg [name:password]').val()
+        e.preventDefault();
         $.ajax({
             method: "POSt",
             url: "/api/reguser",
@@ -47,30 +45,27 @@ $(function () {
                 }
                 layer.msg('注册成功，请登录！')
                 //注册成功后自动切换到登录页面
-                $('#link_login').click()
+                $('#link_reg').click()
             }
         });
-        // 监听登录表单的提交事件
-        $('#form_login').on('submit', function (e) {
-            e.preventDefault()
-            $.ajax({
-                method: "POST",
-                url: "/api/login",
-                data: $(this).serialize(),
-                success: function (res) {
-                    if (res.status !== 0) {
-                        return layer.msg(res.message)
-                    }
-                    layer.msg('登录成功')
-                    //将登录成功之后的token字符串 存储到localStorage中
-                    localStorage.setItem('token', res.token)
-                    //切换到首页  index.html
-                    location.href = "/index.html"
-                }
-            });
-        })
-
-
     })
 
+    $('#form_login').on('submit', function (e) {
+        e.preventDefault();
+        $.ajax({
+            method: "POST",
+            url: "/api/login",
+            data: $(this).serialize(),
+            success: function (res) {
+                if (res.status !== 0) {
+                    return layer.msg(res.message)
+                }
+                layer.msg('注册成功')
+                //将登录成功之后的token字符串 存储到localStorage中
+                localStorage.setItem('token', res.token)
+                //切换到首页  index.html
+                location.href = "/index.html"
+            }
+        });
+    })
 })

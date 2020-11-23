@@ -22,12 +22,8 @@ function getUserInfo() {
     $.ajax({
         method: "GET",
         url: "/my/userinfo",
-        //headers就是请求头配置对象
-        headers: {
-            Authorization: localStorage.getItem('token') || ''
-        },
         success: function (res) {
-            console.log(res);
+            // console.log(res);
             if (res.status !== 0) {
                 return layui.layer.msg('获取用户信息失败!')
             }
@@ -45,13 +41,13 @@ function renderAvatar(user) {
     //按用户需要渲染头部头像
     //如果有图片就显示图片头像
     if (user.user_pic !== null) {
-        $('#layui-nav-img').attr('src', user.user_pic).show()
-        $('.items').hide()
+        $('.layui-nav-img').attr('src', user.user_pic).show()
+        $('.text-avatar').hide()
     } else {
         //如果没有图片就显示名字的第一个文字
-        $('#layui-nav-img').hide()
+        $('.layui-nav-img').hide()
         var first = name[0].toUpperCase()
-        $('.items').html(first).show()
+        $('.text-avatar').html(first).show()
     }
 
 }
