@@ -29,7 +29,7 @@ function getUserInfo() {
             }
             // 调用  renderAvatar 渲染头部头像的函数
             renderAvatar(res.data)
-        }
+        },
     });
 }
 //渲染头部头像
